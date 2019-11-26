@@ -6,7 +6,7 @@
 
 {# reCAPTCHA v3 #}
 {% if __SELF__.property('type') == 'v3' %}
-
+    <!-- reCAPTCHA v3 -->
     {% if __SELF__.property('load_script') %}
         <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
     {% endif %}
@@ -34,6 +34,7 @@
     <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="">
 {# reCAPTCHA v2 #}
 {% else %}
+    <!-- reCAPTCHA v2 -->
     {% if __SELF__.property('load_script') %}
         <script src="https://www.google.com/recaptcha/api.js?hl={{ lang }}" async defer></script>
     {% endif %}
@@ -60,6 +61,7 @@
         </button>
 
     {% elseif __SELF__.property('type') == 'invisible' %}
+        <div class="form-error-message" data-validate-for="g-recaptcha-response"></div>
         <button type="button" id="recaptcha_{{__SELF__.id}}" class="g-recaptcha {{ __SELF__.property('button_class') }}" data-sitekey="{{ site_key }}" data-callback='submitRecaptchaForm' data-attach-loading>
             {{ __SELF__.property('button_text') }}
         </button>
