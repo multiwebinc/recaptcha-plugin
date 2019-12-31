@@ -11,20 +11,20 @@
         <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
     {% endif %}
     <script>
-        grecaptcha.ready(function() {
-            var form = $("#recaptcha_{{__SELF__.id}}").closest("form");
-            form.on("submit", function(event) {
-                executeRecaptcha();
+        function getRecaptchaToken() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute("{{ site_key }}", {action: "{{ __SELF__.property('action_name') }}"})
+                    .then(function(token) {
+                        document.getElementById('g-recaptcha-response').value = token;
+                    });
             });
-            executeRecaptcha();
-        });
-
-        function executeRecaptcha() {
-            grecaptcha.execute("{{ site_key }}", {action: "{{ __SELF__.property('action_name') }}"})
-                .then(function(token) {
-                    $("#g-recaptcha-response").val(token);
-                });
         }
+
+        // Get recaptcha token once on page load, then reload it every two
+        // minutes to prevent it from timing out while the user fills out
+        // the form.
+        getRecaptchaToken();
+        window.setInterval(getRecaptchaToken, 120000);
 
     </script>
     <button type="submit" id="recaptcha_{{__SELF__.id}}" class="{{ __SELF__.property('button_class') }}" data-attach-loading>
