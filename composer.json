@@ -1,5 +1,15 @@
 {
+    "name": "multiwebinc/oc-recaptcha-plugin",
+    "type": "october-plugin",
+    "description": "reCAPTCHA plugin for OctoberCMS",
+    "keywords": [
+        "october",
+        "octobercms",
+        "recaptcha"
+    ],
+    "license": "MIT",
     "require": {
+        "composer/installers": "~1.0",
         "google/recaptcha": "^1.2"
     }
 }
